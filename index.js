@@ -50,7 +50,7 @@ app.use(
 );
 
 // FLASH MESSAGES
-app.use(flash);
+app.use(flash());
 
 //PUBLIC PATH
 app.use(express.static("public"));
@@ -67,13 +67,15 @@ app.use((req, res, next) => {
 // ROUTES
 app.use("/toughts", toughtsRoutes);
 
-app.get('/', ToughtController.showToughts)
+app.get('/', ToughtController.showToughts);
 
 conn
   .sync()
   //.sync({ force: true })
   .then(() => {
-    app.listen(3000);
+    app.listen(3000, () => {
+      console.log("Server is running on port 3000");
+    });
   })
   .catch((err) => {
     console.log(err);
